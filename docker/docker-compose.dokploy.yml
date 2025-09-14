@@ -3,12 +3,14 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    container_name: sentient-backend
     expose:
       - "5000"
     environment:
       PYTHONUNBUFFERED: "1"
       SENTIENT_CONFIG_PATH: "/app/sentient.yaml"
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      LITELLM_API_KEY: ${OPENROUTER_API_KEY}
     volumes:
       - ../sentient.yaml:/app/sentient.yaml:ro
       - ../src:/app/src:ro
@@ -17,7 +19,7 @@ services:
       - ../logs:/app/logs
       - ../local_data:/app/local_data
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:5000/api/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -27,9 +29,8 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile.frontend
-    container_name: sentient-frontend
-    expose:
-      - "3000"
+    ports:
+      - "3000:3000"
     environment:
       DOCKER_ENV: "true"
     volumes:
