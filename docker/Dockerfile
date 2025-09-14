@@ -35,8 +35,9 @@ RUN if [ -f pdm.lock ]; then \
 # Copy source code
 COPY src/ ./src/
 COPY sentient.yaml ./
-COPY emergency_backups/ ./emergency_backups/
-COPY project_results/ ./project_results/
+# Создаём рантайм-каталоги (будут перекрыты bind-mount томами в compose)
+RUN set -eux; \
+    mkdir -p /app/emergency_backups /app/project_results /app/logs /app/local_data
 
 # Install goofys for high-performance S3 mounting
 RUN curl -L https://github.com/kahing/goofys/releases/latest/download/goofys -o /usr/local/bin/goofys \
