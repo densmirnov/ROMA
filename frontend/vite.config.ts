@@ -29,16 +29,8 @@ export default defineConfig({
       clientPort: 443,
     },
     proxy: {
-      '/api': {
-        target: backendTarget,
-        changeOrigin: true,
-        secure: false,
-      },
-      '/socket.io': {
-        target: backendTarget,
-        changeOrigin: true,
-        ws: true,
-      }
+      '/api': { target: 'http://sentient-backend:5000', changeOrigin: true },
+      '/socket.io': { target: 'ws://sentient-backend:5000', ws: true }
     }
   },
 }) 

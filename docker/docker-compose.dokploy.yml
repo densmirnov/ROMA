@@ -3,6 +3,7 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile
+      container_name: sentient-backend
     expose:
       - "5000"
     environment:
@@ -26,6 +27,7 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile.frontend
+      container_name: sentient-frontend
     expose:
       - "3000"
     environment:
