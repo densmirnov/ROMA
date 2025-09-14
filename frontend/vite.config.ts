@@ -18,10 +18,16 @@ export default defineConfig({
     host: true,
     allowedHosts: [
       'localhost',
+      'roma.codextown.xyz',
       '.ngrok-free.app',
       '.ngrok.io',
       '.ngrok.app'
     ],
+    hmr: {
+      host: 'roma.codextown.xyz',
+      protocol: 'wss',
+      clientPort: 443,
+    },
     proxy: {
       '/api': {
         target: backendTarget,
